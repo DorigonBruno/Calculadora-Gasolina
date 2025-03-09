@@ -21,21 +21,30 @@ const App = () => {
     if (calculo <= 0.7) {
       setInfo({
         title: "Compensa usar Álcool",
-        gasolina: gasolina,
-        alcool: alcool,
+        gasolina: formataMoeda(gasolina),
+        alcool: formataMoeda(alcool),
       });
       setAlcool(0);
       setGasolina(0);
     } else {
       setInfo({
         title: "Compensa usar Gasolina",
-        gasolina: gasolina,
-        alcool: alcool,
+        gasolina: formataMoeda(gasolina),
+        alcool: formataMoeda(alcool),
       });
 
       setAlcool(0);
       setGasolina(0);
     }
+  }
+
+  function formataMoeda(valor: number) {
+    const valorFormatado = valor.toLocaleString("PT-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    return valorFormatado;
   }
 
   return (
@@ -84,13 +93,15 @@ const App = () => {
 
         {info && (
           <div className="bg-green-500 w-full max-w-sm md:max-w-md text-center p-2 mt-4">
-            <h2 className="text-xl md:text-2xl mt-1 mb-4 font-bold">{info.title}</h2>
+            <h2 className="text-xl md:text-2xl mt-1 mb-4 font-bold">
+              {info.title}
+            </h2>
 
             <span className="block  hover:scale-110 transition duration-200 ease-in-out">
-              Gasolina R$ {info.gasolina}
+              Gasolina {info.gasolina}
             </span>
             <span className="block mb-2  hover:scale-110 transition duration-200 ease-in-out">
-              Álcool R$ {info.alcool}
+              Álcool {info.alcool}
             </span>
           </div>
         )}
